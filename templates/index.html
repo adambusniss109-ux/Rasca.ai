@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>Rasca AI</title>
+    <style>
+        body { font-family: Arial; text-align: center; padding: 50px; background: #0f0f0f; color: white; }
+        h1 { color: #00ff88; }
+        input { padding: 10px; width: 80%; border-radius: 8px; border: none; }
+        button { padding: 10px 20px; border-radius: 8px; border: none; background: #00ff88; color: black; margin-top:10px; }
+        #reply { margin-top: 20px; padding: 15px; background: #1a1a1a; border-radius: 8px; min-height:50px; }
+    </style>
+</head>
+<body>
+<h1>مرحبا في Rasca AI</h1>
+<input id="msg" placeholder="اسألني اي حاجة">
+<br>
+<button onclick="send()">ارسال</button>
+<div id="reply"></div>
+<script>
+async function send(){
+    let msg = document.getElementById('msg').value;
+    document.getElementById('reply').innerText = "بفكر...";
+    let res = await fetch('/chat', {method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({message: msg})});
+    let data = await res.json();
+    document.getElementById('reply').innerText = data.reply;
+}
+</script>
+</body>
+</html>
